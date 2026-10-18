@@ -95,6 +95,7 @@
 
     .stage {
       position: relative;
+      height: 100vh;
       height: 100svh;
       min-height: 740px;
       max-height: 1150px;
@@ -474,7 +475,7 @@
     }
   
 /* Cảnh kết: vườn hoa xanh */
-#flowerScene{position:fixed;inset:0;width:100vw;max-width:none;height:100dvh;max-height:none;margin:0;padding:0;border:0;overflow:hidden;color:#dffbff;background:radial-gradient(ellipse at 50% 72%,#113042 0%,#111322 48%,#080b14 100%);touch-action:pan-y;cursor:pointer}
+#flowerScene{display:none;z-index:10000;position:fixed;inset:0;width:100vw;max-width:none;height:100vh;height:100dvh;max-height:none;margin:0;padding:0;border:0;overflow:hidden;color:#dffbff;background:radial-gradient(ellipse at 50% 72%,#113042 0%,#111322 48%,#080b14 100%);touch-action:none;cursor:pointer}
 #flowerScene::backdrop{background:#080b14}
 #flowerScene[open]{display:flex;align-items:center;justify-content:center;flex-direction:column}
 .flower-copy{position:absolute;z-index:2;top:max(6vh,24px);left:20px;right:20px;text-align:center;pointer-events:none}
@@ -493,6 +494,13 @@
 @keyframes floatLight{from{opacity:.2;transform:translateY(8px)}to{opacity:.95;transform:translateY(-18px)}}
 @media(prefers-reduced-motion:reduce){.flower-stem{transform:none!important}}
 
+
+#enableMotion{position:fixed;z-index:10001;right:14px;bottom:16px;border:1px solid #ecc8df;border-radius:25px;padding:12px 18px;background:#32213e;color:white}
+html.motion-enabled *,html.motion-enabled *::before,html.motion-enabled *::after{animation-play-state:running}
+html.motion-enabled .flower-grow{animation:growFlower 2.2s both!important}
+html.motion-enabled .flower-head{animation:openFlower 1.8s .9s both!important}
+html.motion-enabled .flower-firefly{animation:floatLight 4s ease-in-out infinite alternate!important}
+html.motion-enabled .flower-stem{transform:rotate(var(--sway,0deg))!important}
 </style>
 </head>
 
@@ -508,7 +516,9 @@
       vẽ các điểm 3D bằng phép chiếu tích hợp.
   -->
 
-  <main>
+  <noscript><p style="padding:24px;background:#39243b;color:white">Trình xem này chưa chạy JavaScript nên không thể hiển thị hoạt ảnh. Hãy mở trang bằng trình duyệt với JavaScript được bật.</p></noscript>
+<button id="enableMotion" hidden type="button">✧ Bật hoạt ảnh</button>
+<main>
     <section
       class="stage"
       id="stage"
@@ -582,6 +592,9 @@
         <p class="eyebrow" style="text-align: center">
           Những điều anh muốn nói
         </p>
+
+
+
         <p class="sub">
           Một chút chân thành, gửi cùng những vì sao.<br>
           Em cứ đọc chậm thôi, lời chúc vẫn ở đây.
@@ -619,7 +632,7 @@
   </main>
 
   
-<dialog id="flowerScene" aria-labelledby="flowerTitle" aria-describedby="flowerHelp" tabindex="-1">
+<div id="flowerScene" hidden role="dialog" aria-modal="true" aria-labelledby="flowerTitle" aria-describedby="flowerHelp" tabindex="-1">
 <div class="flower-copy"><small>Một vườn hoa, dành riêng cho em</small><h2 id="flowerTitle">Mong em luôn rạng rỡ<br>như những đóa hoa này.</h2><p></p></div>
 <svg class="flower-art" viewBox="0 0 600 680" role="img" aria-label="Ba bông hoa xanh nở rộ giữa khu vườn đom đóm"><defs>
 <linearGradient id="petalBlue" x1="0" y1="1" x2=".4" y2="0"><stop stop-color="#00789c"/><stop offset=".55" stop-color="#19c2eb"/><stop offset="1" stop-color="#99f4ff"/></linearGradient>
@@ -631,7 +644,7 @@
 <ellipse cx="300" cy="632" rx="235" ry="20" fill="#07131a"/>
 <path d="M70 630 Q90 595.0 96.0 580 Q81.0 605.0 76 630" fill="url(#grassGreen)" opacity=".7"/><path d="M143 630 Q111 566.3 101.4 539 Q125.4 584.5 149 630" fill="url(#grassGreen)" opacity=".7"/><path d="M216 630 Q260 537.6 273.2 498 Q240.2 564.0 222 630" fill="url(#grassGreen)" opacity=".7"/><path d="M289 630 Q233 508.9 216.2 457 Q258.2 543.5 295 630" fill="url(#grassGreen)" opacity=".7"/><path d="M362 630 Q382 480.20000000000005 388.0 416 Q373.0 523.0 368 630" fill="url(#grassGreen)" opacity=".7"/><path d="M435 630 Q403 451.5 393.4 375 Q417.4 502.5 441 630" fill="url(#grassGreen)" opacity=".7"/><path d="M508 630 Q552 569.8 565.2 544 Q532.2 587.0 514 630" fill="url(#grassGreen)" opacity=".7"/><path d="M111 630 Q55 541.1 38.2 503 Q80.19999999999999 566.5 117 630" fill="url(#grassGreen)" opacity=".7"/><path d="M184 630 Q204 512.4 210.0 462 Q195.0 546.0 190 630" fill="url(#grassGreen)" opacity=".7"/><path d="M257 630 Q225 483.70000000000005 215.4 421 Q239.4 525.5 263 630" fill="url(#grassGreen)" opacity=".7"/><path d="M330 630 Q374 455.0 387.2 380 Q354.2 505.0 336 630" fill="url(#grassGreen)" opacity=".7"/><path d="M403 630 Q347 573.3 330.2 549 Q372.2 589.5 409 630" fill="url(#grassGreen)" opacity=".7"/><path d="M476 630 Q496 544.6 502.0 508 Q487.0 569.0 482 630" fill="url(#grassGreen)" opacity=".7"/><path d="M79 630 Q47 515.9 37.4 467 Q61.4 548.5 85 630" fill="url(#grassGreen)" opacity=".7"/><path d="M152 630 Q196 487.20000000000005 209.2 426 Q176.2 528.0 158 630" fill="url(#grassGreen)" opacity=".7"/><path d="M225 630 Q169 458.5 152.2 385 Q194.2 507.5 231 630" fill="url(#grassGreen)" opacity=".7"/><path d="M298 630 Q318 576.8 324.0 554 Q309.0 592.0 304 630" fill="url(#grassGreen)" opacity=".7"/><path d="M371 630 Q339 548.1 329.4 513 Q353.4 571.5 377 630" fill="url(#grassGreen)" opacity=".7"/><path d="M444 630 Q488 519.4 501.2 472 Q468.2 551.0 450 630" fill="url(#grassGreen)" opacity=".7"/><path d="M517 630 Q461 490.70000000000005 444.2 431 Q486.2 530.5 523 630" fill="url(#grassGreen)" opacity=".7"/><path d="M120 630 Q140 462.0 146.0 390 Q131.0 510.0 126 630" fill="url(#grassGreen)" opacity=".7"/><path d="M193 630 Q161 580.3 151.4 559 Q175.4 594.5 199 630" fill="url(#grassGreen)" opacity=".7"/><g class="flower-stem" data-direction="0" style="--delay:0.25s"><g class="flower-grow"><path d="M300 625 Q267.5 420 205 260" fill="none" stroke="url(#stemBlue)" stroke-width="9" stroke-linecap="round"/><path d="M288.125 557.5 Q353.125 562.5 333.125 492.5 Q283.125 507.5 288.125 557.5" fill="url(#leafBlue)"/><path d="M276.25 515.0 Q211.25 520.0 221.25 450.0 Q281.25 465.0 276.25 515.0" fill="url(#leafBlue)"/><path d="M264.375 472.5 Q329.375 477.5 329.375 407.5 Q259.375 422.5 264.375 472.5" fill="url(#leafBlue)"/><path d="M252.5 430.0 Q187.5 435.0 207.5 365.0 Q257.5 380.0 252.5 430.0" fill="url(#leafBlue)"/><path d="M240.625 387.5 Q305.625 392.5 295.625 322.5 Q235.625 337.5 240.625 387.5" fill="url(#leafBlue)"/><path d="M228.75 345.0 Q163.75 350.0 163.75 280.0 Q233.75 295.0 228.75 345.0" fill="url(#leafBlue)"/><g transform="translate(205 260)"><g class="flower-head"><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(-65)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(-32)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(0)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(32)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(65)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse cx="0" cy="4" rx="29" ry="10" fill="url(#flowerPollen)"/><path d="M-30 4 Q0 27 30 4 Q0 14 -30 4" fill="#66e1ed"/><ellipse cx="-6" cy="-13" rx="3" ry="4" fill="#fffbd2" opacity=".8"/></g></g></g></g><g class="flower-stem" data-direction="1" style="--delay:0.55s"><g class="flower-grow"><path d="M300 625 Q365.0 420 400 220" fill="none" stroke="url(#stemBlue)" stroke-width="9" stroke-linecap="round"/><path d="M312.5 552.5 Q377.5 557.5 357.5 487.5 Q307.5 502.5 312.5 552.5" fill="url(#leafBlue)"/><path d="M325.0 505.0 Q260.0 510.0 270.0 440.0 Q330.0 455.0 325.0 505.0" fill="url(#leafBlue)"/><path d="M337.5 457.5 Q402.5 462.5 402.5 392.5 Q332.5 407.5 337.5 457.5" fill="url(#leafBlue)"/><path d="M350.0 410.0 Q285.0 415.0 305.0 345.0 Q355.0 360.0 350.0 410.0" fill="url(#leafBlue)"/><path d="M362.5 362.5 Q427.5 367.5 417.5 297.5 Q357.5 312.5 362.5 362.5" fill="url(#leafBlue)"/><path d="M375.0 315.0 Q310.0 320.0 310.0 250.0 Q380.0 265.0 375.0 315.0" fill="url(#leafBlue)"/><g transform="translate(400 220)"><g class="flower-head"><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(-65)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(-32)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(0)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(32)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(65)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse cx="0" cy="4" rx="29" ry="10" fill="url(#flowerPollen)"/><path d="M-30 4 Q0 27 30 4 Q0 14 -30 4" fill="#66e1ed"/><ellipse cx="-6" cy="-13" rx="3" ry="4" fill="#fffbd2" opacity=".8"/></g></g></g></g><g class="flower-stem" data-direction="2" style="--delay:0s"><g class="flower-grow"><path d="M300 625 Q317.5 420 305 135" fill="none" stroke="url(#stemBlue)" stroke-width="9" stroke-linecap="round"/><path d="M300.625 541.875 Q365.625 546.875 345.625 476.875 Q295.625 491.875 300.625 541.875" fill="url(#leafBlue)"/><path d="M301.25 483.75 Q236.25 488.75 246.25 418.75 Q306.25 433.75 301.25 483.75" fill="url(#leafBlue)"/><path d="M301.875 425.625 Q366.875 430.625 366.875 360.625 Q296.875 375.625 301.875 425.625" fill="url(#leafBlue)"/><path d="M302.5 367.5 Q237.5 372.5 257.5 302.5 Q307.5 317.5 302.5 367.5" fill="url(#leafBlue)"/><path d="M303.125 309.375 Q368.125 314.375 358.125 244.375 Q298.125 259.375 303.125 309.375" fill="url(#leafBlue)"/><path d="M303.75 251.25 Q238.75 256.25 238.75 186.25 Q308.75 201.25 303.75 251.25" fill="url(#leafBlue)"/><g transform="translate(305 135)"><g class="flower-head"><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(-65)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(-32)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(0)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(32)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse class="flower-petal" cx="0" cy="-26" rx="19" ry="38" transform="rotate(65)" fill="url(#petalBlue)" stroke="#a2f4ff" stroke-width="1.3"/><ellipse cx="0" cy="4" rx="29" ry="10" fill="url(#flowerPollen)"/><path d="M-30 4 Q0 27 30 4 Q0 14 -30 4" fill="#66e1ed"/><ellipse cx="-6" cy="-13" rx="3" ry="4" fill="#fffbd2" opacity=".8"/></g></g></g></g><circle class="flower-firefly" cx="60" cy="85" r="1.3" fill="#82e6fa" style="--delay:-0.0s"/><circle class="flower-firefly" cx="157" cy="146" r="1.85" fill="#ecf2a1" style="--delay:-0.31s"/><circle class="flower-firefly" cx="254" cy="207" r="2.4000000000000004" fill="#82e6fa" style="--delay:-0.62s"/><circle class="flower-firefly" cx="351" cy="268" r="1.3" fill="#ecf2a1" style="--delay:-0.9299999999999999s"/><circle class="flower-firefly" cx="448" cy="329" r="1.85" fill="#82e6fa" style="--delay:-1.24s"/><circle class="flower-firefly" cx="60" cy="390" r="2.4000000000000004" fill="#ecf2a1" style="--delay:-1.55s"/><circle class="flower-firefly" cx="157" cy="451" r="1.3" fill="#82e6fa" style="--delay:-1.8599999999999999s"/><circle class="flower-firefly" cx="254" cy="512" r="1.85" fill="#ecf2a1" style="--delay:-2.17s"/><circle class="flower-firefly" cx="351" cy="93" r="2.4000000000000004" fill="#82e6fa" style="--delay:-2.48s"/><circle class="flower-firefly" cx="448" cy="154" r="1.3" fill="#ecf2a1" style="--delay:-2.79s"/><circle class="flower-firefly" cx="60" cy="215" r="1.85" fill="#82e6fa" style="--delay:-3.1s"/><circle class="flower-firefly" cx="157" cy="276" r="2.4000000000000004" fill="#ecf2a1" style="--delay:-3.41s"/><circle class="flower-firefly" cx="254" cy="337" r="1.3" fill="#82e6fa" style="--delay:-3.7199999999999998s"/><circle class="flower-firefly" cx="351" cy="398" r="1.85" fill="#ecf2a1" style="--delay:-4.03s"/><circle class="flower-firefly" cx="448" cy="459" r="2.4000000000000004" fill="#82e6fa" style="--delay:-4.34s"/><circle class="flower-firefly" cx="60" cy="520" r="1.3" fill="#ecf2a1" style="--delay:-4.65s"/><circle class="flower-firefly" cx="157" cy="101" r="1.85" fill="#82e6fa" style="--delay:-4.96s"/><circle class="flower-firefly" cx="254" cy="162" r="2.4000000000000004" fill="#ecf2a1" style="--delay:-5.27s"/><circle class="flower-firefly" cx="351" cy="223" r="1.3" fill="#82e6fa" style="--delay:-5.58s"/><circle class="flower-firefly" cx="448" cy="284" r="1.85" fill="#ecf2a1" style="--delay:-5.89s"/><circle class="flower-firefly" cx="60" cy="345" r="2.4000000000000004" fill="#82e6fa" style="--delay:-6.2s"/><circle class="flower-firefly" cx="157" cy="406" r="1.3" fill="#ecf2a1" style="--delay:-6.51s"/><circle class="flower-firefly" cx="254" cy="467" r="1.85" fill="#82e6fa" style="--delay:-6.82s"/><circle class="flower-firefly" cx="351" cy="528" r="2.4000000000000004" fill="#ecf2a1" style="--delay:-7.13s"/><circle class="flower-firefly" cx="448" cy="109" r="1.3" fill="#82e6fa" style="--delay:-7.4399999999999995s"/><circle class="flower-firefly" cx="60" cy="170" r="1.85" fill="#ecf2a1" style="--delay:-7.75s"/><circle class="flower-firefly" cx="157" cy="231" r="2.4000000000000004" fill="#82e6fa" style="--delay:-8.06s"/><circle class="flower-firefly" cx="254" cy="292" r="1.3" fill="#ecf2a1" style="--delay:-8.37s"/></svg>
 <div class="flower-close" id="flowerHelp"></div>
-</dialog>
+</div>
 
 <script>
     "use strict";
@@ -667,7 +680,7 @@
 
     const $ = id => document.getElementById(id);
 
-    const reduced = matchMedia(
+    let reduced = matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
@@ -1574,6 +1587,7 @@
 
     // Cảnh hoa sau bức thư. Đóng cảnh sẽ dừng toàn bộ vòng lặp.
     const flowerScene = $("flowerScene");
+    let flowerVisible = false;
     let flowerTimer = 0, flowerFrame = 0, flowerAim = 0, flowerSway = 0;
     let flowerFocus = null, flowerOverflow = "";
     function queueFlowerEnding() {
@@ -1582,16 +1596,18 @@
     }
     function openFlowers() {
       clearTimeout(flowerTimer);
-      if (flowerScene.open) return;
+      if (flowerVisible) return;
       flowerFocus = document.activeElement;
       flowerOverflow = document.body.style.overflow;
       document.body.style.overflow = "hidden";
       flowerAim = flowerSway = 0;
-      flowerScene.showModal();
-      flowerScene.focus({preventScroll:true});
+      flowerVisible = true;
+      flowerScene.hidden = false;
+      flowerScene.setAttribute("open", "");
+      flowerScene.focus();
       const stems = flowerScene.querySelectorAll(".flower-stem");
       function sway(now) {
-        if (!flowerScene.open) return;
+        if (!flowerVisible) return;
         flowerSway += (flowerAim - flowerSway) * .045;
         stems.forEach((stem, i) => {
           const angle = reduced ? 0 : flowerSway * (5 + i * 1.2) + Math.sin(now / 1600 + i * .65) * 1.4;
@@ -1604,21 +1620,54 @@
     function closeFlowers() {
       clearTimeout(flowerTimer);
       cancelAnimationFrame(flowerFrame);
-      if (!flowerScene.open) return;
-      flowerScene.close();
+      if (!flowerVisible) return;
+      flowerVisible = false;
+      flowerScene.hidden = true;
+      flowerScene.removeAttribute("open");
       document.body.style.overflow = flowerOverflow;
       if (flowerFocus && flowerFocus.isConnected) flowerFocus.focus({preventScroll:true});
     }
-    flowerScene.addEventListener("pointermove", event => {
-      flowerAim = Math.max(-1, Math.min(1, event.clientX / window.innerWidth * 2 - 1));
-    });
+    let touchStartX = 0, touchStartY = 0, flowerDragged = false;
+    function aimFlowers(clientX) {
+      flowerAim = Math.max(-1, Math.min(1, clientX / window.innerWidth * 2 - 1));
+    }
+    flowerScene.addEventListener("pointermove", event => aimFlowers(event.clientX));
+    flowerScene.addEventListener("pointerdown", () => { flowerDragged = false; });
     flowerScene.addEventListener("pointerleave", () => { flowerAim = 0; });
+    flowerScene.addEventListener("touchstart", event => {
+      if (!event.touches.length) return;
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+      flowerDragged = false;
+    }, {passive:true});
+    flowerScene.addEventListener("touchmove", event => {
+      if (!event.touches.length) return;
+      const finger = event.touches[0];
+      if (Math.hypot(finger.clientX-touchStartX, finger.clientY-touchStartY) > 8) flowerDragged = true;
+      aimFlowers(finger.clientX);
+      event.preventDefault();
+    }, {passive:false});
     flowerScene.addEventListener("click", event => {
       event.stopPropagation();
+      if (flowerDragged) { flowerDragged = false; return; }
       closeFlowers();
     });
-    flowerScene.addEventListener("cancel", event => { event.preventDefault(); closeFlowers(); });
+    document.addEventListener("keydown", event => {
+      if (!flowerVisible) return;
+      if (event.key === "Escape" || event.key === "Enter" || event.key === " ") {
+        event.preventDefault(); closeFlowers();
+      } else if (event.key === "Tab") {
+        event.preventDefault(); flowerScene.focus();
+      }
+    });
     $("viewFlowers").onclick = openFlowers;
+    $("enableMotion").hidden = !reduced;
+    $("enableMotion").onclick = () => {
+      reduced = false;
+      document.documentElement.classList.add("motion-enabled");
+      $("enableMotion").hidden = true;
+      if (flowerVisible) { closeFlowers(); openFlowers(); }
+    };
 
   </script>
 </body>
